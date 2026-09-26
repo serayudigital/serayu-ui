@@ -1,0 +1,31 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": { "jsx": true }
+  },
+  "plugins": ["serayu"],
+  "rules": {
+    "serayu/no-hardcoded-color": "error",
+    "serayu/no-gradient": "error",
+    "serayu/tap-target": "warn",
+    "serayu/sd-namespace": "warn"
+  },
+  "ignorePatterns": [
+    "node_modules/**",
+    "dist/**",
+    "playground/**",
+    "docs/**",
+    "tools/**",
+    "*.config.js",
+    "*.config.ts",
+    "*.config.mjs",
+    "scripts/**",
+    "**/__tests__/**",
+    "src/App.tsx",
+    "src/main.tsx"
+  ]
+}
+

@@ -1,0 +1,15 @@
+@import "./tokens.css";
+@import "./utilities.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Serayu UI - Mobile-first React UI components built with Radix UI and Tailwind CSS.
+ * by Serayu Digital - www.serayudigital.com
+ *
+ * Token namespace: sd-
+ * Theme is set via the data-theme="light|dark" attribute on <html>.
+ * See tokens.css for the full list of --sd-* variables.
+ */

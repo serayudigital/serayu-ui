@@ -1,0 +1,243 @@
+/*
+ * Serayu UI - Custom utilities
+ * Extra Tailwind utilities layer for mobile-first patterns.
+ *
+ * Usage from JSX:
+ *   <div className="sd-safe-top">       ... automatic safe-area padding-top
+ *   <button className="sd-tap">         ... tap responsiveness tweak
+ *   <div className="sd-hide-scrollbar"> ... hide the scrollbar
+ */
+
+@layer utilities {
+  /* Tap-target and touch optimization */
+  .sd-tap {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+  }
+
+  .sd-no-highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Safe-area helpers (iOS notch + Android gesture bar) */
+  .sd-safe-top {
+    padding-top: max(1rem, var(--sd-safe-top));
+  }
+  .sd-safe-bottom {
+    padding-bottom: max(1rem, var(--sd-safe-bottom));
+  }
+  .sd-safe-left {
+    padding-left: max(1rem, var(--sd-safe-left));
+  }
+  .sd-safe-right {
+    padding-right: max(1rem, var(--sd-safe-right));
+  }
+
+  .sd-safe-pt {
+    padding-top: var(--sd-safe-top);
+  }
+  .sd-safe-pb {
+    padding-bottom: var(--sd-safe-bottom);
+  }
+  .sd-safe-pl {
+    padding-left: var(--sd-safe-left);
+  }
+  .sd-safe-pr {
+    padding-right: var(--sd-safe-right);
+  }
+
+  .sd-safe-mt {
+    margin-top: var(--sd-safe-top);
+  }
+  .sd-safe-mb {
+    margin-bottom: var(--sd-safe-bottom);
+  }
+
+  /* Scroll helpers */
+  .sd-hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .sd-hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sd-snap-x {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sd-snap-x > * {
+    scroll-snap-align: start;
+  }
+
+  /* Touch action helpers */
+  .sd-pan-y {
+    touch-action: pan-y;
+  }
+  .sd-pan-x {
+    touch-action: pan-x;
+  }
+  .sd-pinch-zoom {
+    touch-action: pinch-zoom;
+  }
+
+  /* Min tap target (a11y - 44 x 44 px) */
+  .sd-tap-target {
+    min-width: var(--sd-tap-target);
+    min-height: var(--sd-tap-target);
+  }
+
+  /* Smooth theme transition (opacity/color, NOT a gradient animation) */
+  .sd-theme-transition,
+  .sd-theme-transition *,
+  .sd-theme-transition *::before,
+  .sd-theme-transition *::after {
+    transition-property: background-color, border-color, color, fill,
+      stroke, box-shadow;
+    transition-timing-function: var(--sd-easing-standard);
+    transition-duration: var(--sd-duration-standard);
+  }
+
+  /* Accordion open/close height animation (NOT a gradient) */
+  .sd-accordion-down {
+    animation: sd-accordion-down var(--sd-duration-standard)
+      var(--sd-easing-standard);
+  }
+  .sd-accordion-up {
+    animation: sd-accordion-up var(--sd-duration-standard)
+      var(--sd-easing-standard);
+  }
+}
+
+@keyframes sd-accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes sd-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+/* Overlay fade (Dialog / Sheet / Popover / Tooltip) */
+@keyframes sd-overlay-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sd-overlay-hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sd-content-show {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sd-content-hide {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@keyframes sd-sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sd-sheet-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* Indeterminate progress (linear translate, NOT a gradient) */
+@keyframes sd-progress-indeterminate {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+/* Progress indeterminate (circular stroke-dashoffset) */
+@keyframes sd-progress-circular {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -125;
+  }
+}
+
+@layer utilities {
+  .sd-overlay[data-state="open"] {
+    animation: sd-overlay-show var(--sd-duration-enter) var(--sd-easing-standard);
+  }
+  .sd-overlay[data-state="closed"] {
+    animation: sd-overlay-hide var(--sd-duration-standard)
+      var(--sd-easing-standard);
+  }
+  .sd-content[data-state="open"] {
+    animation: sd-content-show var(--sd-duration-enter)
+      var(--sd-easing-standard);
+  }
+  .sd-content[data-state="closed"] {
+    animation: sd-content-hide var(--sd-duration-standard)
+      var(--sd-easing-standard);
+  }
+  .sd-sheet[data-state="open"] {
+    animation: sd-sheet-up var(--sd-duration-enter) var(--sd-easing-standard);
+  }
+  .sd-sheet[data-state="closed"] {
+    animation: sd-sheet-down var(--sd-duration-standard)
+      var(--sd-easing-standard);
+  }
+}

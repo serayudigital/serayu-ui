@@ -1,0 +1,65 @@
+# Source code is not published (consumers compile from dist/)
+src
+playground
+scripts
+tools
+docs
+
+# Config files
+*.config.js
+*.config.cjs
+*.config.ts
+*.config.mjs
+tsconfig*.json
+.eslintrc.json
+.eslintrc.cjs
+index.html
+playground/index.html
+
+# Build artifacts (anything that is not dist/)
+dev-dist
+*.tsbuildinfo
+.cache
+.vite
+.eslintcache
+
+# Editor & OS
+.vscode
+.idea
+.DS_Store
+*.swp
+*.swo
+
+# Logs
+*.log
+logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Test artifacts
+coverage
+.nyc_output
+
+# PWA generated
+public/sw.js
+public/workbox-*.js
+public/registerSW.js
+public/manifest.webmanifest
+
+# Package manager
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Internal reference doc
+serayu-ui.txt
+
+# Local node_modules (in any sub-package)
+**/node_modules

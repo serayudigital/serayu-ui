@@ -1,0 +1,202 @@
+/*
+ * Serayu UI - Design Tokens
+ * Namespace: sd- (Serayu Digital)
+ * Mobile-first, dual-theme (light + dark), SOLID colors only.
+ *
+ * Theme is set via the data-theme="light|dark" attribute on <html>.
+ * Default is light; override manually via data-theme, or auto-follow OS
+ * via prefers-color-scheme.
+ *
+ * The Tailwind config does NOT expose --sd-neutral-* as utility classes.
+ * Those tokens are internal (used for color composition).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Primary color scale (semantic) */
+  --sd-background: #ffffff;
+  --sd-foreground: #0a0a0a;
+
+  --sd-surface: #f7f7f8;
+  --sd-surface-foreground: #0a0a0a;
+
+  --sd-card: #ffffff;
+  --sd-card-foreground: #0a0a0a;
+
+  --sd-muted: #f1f1f3;
+  --sd-muted-foreground: #52525b;
+
+  --sd-border: #e4e4e7;
+  --sd-input: #e4e4e7;
+  --sd-ring: #0064f0;
+
+  --sd-brand: #0064f0;
+  --sd-brand-foreground: #ffffff;
+
+  --sd-success: #16a34a;
+  --sd-success-foreground: #ffffff;
+  --sd-warning: #d97706;
+  --sd-warning-foreground: #ffffff;
+  --sd-danger: #dc2626;
+  --sd-danger-foreground: #ffffff;
+  --sd-info: #2563eb;
+  --sd-info-foreground: #ffffff;
+
+  /* Internal neutral scale (0=white, 900=deep black) */
+  --sd-neutral-0: #ffffff;
+  --sd-neutral-50: #fafafa;
+  --sd-neutral-100: #f4f4f5;
+  --sd-neutral-200: #e4e4e7;
+  --sd-neutral-300: #d4d4d8;
+  --sd-neutral-400: #a1a1aa;
+  --sd-neutral-500: #71717a;
+  --sd-neutral-600: #52525b;
+  --sd-neutral-700: #3f3f46;
+  --sd-neutral-800: #27272a;
+  --sd-neutral-900: #18181b;
+
+  /* Radius mobile modern */
+  --sd-radius-sm: 8px;
+  --sd-radius-md: 12px;
+  --sd-radius-lg: 16px;
+  --sd-radius-xl: 20px;
+  --sd-radius-full: 9999px;
+
+  /* Shadow solid 1 layer (not a gradient) */
+  --sd-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --sd-shadow-md: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+  --sd-shadow-lg: 0 8px 24px 0 rgba(0, 0, 0, 0.12);
+
+  /* Motion */
+  --sd-duration-micro: 120ms;
+  --sd-duration-standard: 200ms;
+  --sd-duration-enter: 320ms;
+  --sd-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sd-easing-emphasized: cubic-bezier(0.3, 0, 0, 1);
+
+  /* Z-index scale */
+  --sd-z-base: 1;
+  --sd-z-dropdown: 1000;
+  --sd-z-sticky: 1100;
+  --sd-z-overlay: 1300;
+  --sd-z-modal: 1400;
+  --sd-z-popover: 1500;
+  --sd-z-toast: 1600;
+  --sd-z-tooltip: 1700;
+
+  /* Tap target minimum (HIG / Material standard) */
+  --sd-tap-target: 44px;
+
+  /* Spacing safe-area (fallback 0 di browser tanpa env() support) */
+  --sd-safe-top: env(safe-area-inset-top, 0px);
+  --sd-safe-right: env(safe-area-inset-right, 0px);
+  --sd-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --sd-safe-left: env(safe-area-inset-left, 0px);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --sd-background: #0b0b10;
+  --sd-foreground: #f4f4f5;
+
+  --sd-surface: #15151b;
+  --sd-surface-foreground: #f4f4f5;
+
+  --sd-card: #1c1c24;
+  --sd-card-foreground: #f4f4f5;
+
+  --sd-muted: #1c1c24;
+  --sd-muted-foreground: #a1a1aa;
+
+  --sd-border: #2a2a33;
+  --sd-input: #2a2a33;
+  --sd-ring: #4d9aff;
+
+  --sd-brand: #4d9aff;
+  --sd-brand-foreground: #0b0b10;
+
+  --sd-success: #4ade80;
+  --sd-success-foreground: #0b0b10;
+  --sd-warning: #fbbf24;
+  --sd-warning-foreground: #0b0b10;
+  --sd-danger: #f87171;
+  --sd-danger-foreground: #0b0b10;
+  --sd-info: #60a5fa;
+  --sd-info-foreground: #0b0b10;
+
+  --sd-neutral-0: #0b0b10;
+  --sd-neutral-50: #15151b;
+  --sd-neutral-100: #1c1c24;
+  --sd-neutral-200: #2a2a33;
+  --sd-neutral-300: #3f3f46;
+  --sd-neutral-400: #52525b;
+  --sd-neutral-500: #71717a;
+  --sd-neutral-600: #a1a1aa;
+  --sd-neutral-700: #d4d4d8;
+  --sd-neutral-800: #e4e4e7;
+  --sd-neutral-900: #f4f4f5;
+
+  --sd-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --sd-shadow-md: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+  --sd-shadow-lg: 0 8px 24px 0 rgba(0, 0, 0, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --sd-background: #0b0b10;
+    --sd-foreground: #f4f4f5;
+
+    --sd-surface: #15151b;
+    --sd-surface-foreground: #f4f4f5;
+
+    --sd-card: #1c1c24;
+    --sd-card-foreground: #f4f4f5;
+
+    --sd-muted: #1c1c24;
+    --sd-muted-foreground: #a1a1aa;
+
+    --sd-border: #2a2a33;
+    --sd-input: #2a2a33;
+    --sd-ring: #4d9aff;
+
+    --sd-brand: #4d9aff;
+    --sd-brand-foreground: #0b0b10;
+
+    --sd-success: #4ade80;
+    --sd-success-foreground: #0b0b10;
+    --sd-warning: #fbbf24;
+    --sd-warning-foreground: #0b0b10;
+    --sd-danger: #f87171;
+    --sd-danger-foreground: #0b0b10;
+    --sd-info: #60a5fa;
+    --sd-info-foreground: #0b0b10;
+
+    --sd-neutral-0: #0b0b10;
+    --sd-neutral-50: #15151b;
+    --sd-neutral-100: #1c1c24;
+    --sd-neutral-200: #2a2a33;
+    --sd-neutral-300: #3f3f46;
+    --sd-neutral-400: #52525b;
+    --sd-neutral-500: #71717a;
+    --sd-neutral-600: #a1a1aa;
+    --sd-neutral-700: #d4d4d8;
+    --sd-neutral-800: #e4e4e7;
+    --sd-neutral-900: #f4f4f5;
+
+    --sd-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --sd-shadow-md: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+    --sd-shadow-lg: 0 8px 24px 0 rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sd-duration-micro: 0ms;
+    --sd-duration-standard: 0ms;
+    --sd-duration-enter: 0ms;
+  }
+}

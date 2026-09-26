@@ -1,0 +1,10 @@
+{
+  "name": "eslint-plugin-serayu",
+  "version": "1.3.0",
+  "description": "Serayu UI design-system rules: solid colors, no gradient, 44px tap targets, sd- namespace.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "node tests/run.js"
+  }
+}
