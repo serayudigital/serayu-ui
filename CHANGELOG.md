@@ -5,6 +5,40 @@ All notable changes to Serayu UI will be documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+[1.0.1] - 2026-09-27
+
+Patch release with bug fixes, chore cleanup, and playground demo
+improvements.
+
+BUG FIXES
+
+- TimePicker: selected item text now visible above the highlight
+  band. The absolute-positioned highlight overlay was painting
+  on top of the item text due to a stacking order issue. Fixed
+  by adding `relative z-10` to the scroll container so its items
+  render above the overlay.
+
+- MobileSearch: hide the browser's native clear UI on
+  `<input type="search">` so consumers see one clear button
+  (the Serayu UI one), not two. Added a CSS rule in `utilities.css`
+  covering `::-webkit-search-cancel-button`,
+  `::-webkit-search-decoration`,
+  `::-webkit-search-results-button`, and
+  `::-webkit-search-results-decoration`.
+
+CHORE
+
+- `package.json` homepage now points to the docs subdomain
+  (`https://serayu-ui.serayudigital.com`).
+- `package-lock.json` root version synchronized with `package.json`
+  (`1.0.0`).
+
+PLAYGROUND
+
+- InstallPrompt, UpdateAvailableToast, Onboarding, CommandPalette:
+  added a trigger button to each demo card so the gated-by-default
+  state is reachable on demand instead of appearing empty.
+
 [1.0.0] - 2026-09-26
 
 Initial public release of `@serayu/ui`.
@@ -81,3 +115,4 @@ TOOLING
 - TypeScript declarations per-component for tree-shake-friendly types.
 
 [1.0.0]: https://github.com/serayudigital/serayu-ui/releases/tag/v1.0.0
+[1.0.1]: https://github.com/serayudigital/serayu-ui/releases/tag/v1.0.1
