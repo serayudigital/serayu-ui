@@ -82,6 +82,17 @@
     touch-action: pinch-zoom;
   }
 
+  /* Hide native clear UI on search inputs - Serayu UI components
+   * render their own clear button. */
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+  }
+
   /* Min tap target (a11y - 44 x 44 px) */
   .sd-tap-target {
     min-width: var(--sd-tap-target);

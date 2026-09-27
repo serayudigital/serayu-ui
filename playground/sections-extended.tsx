@@ -294,6 +294,69 @@ function DonutDemo() {
   );
 }
 
+// Demo wrapper for InstallPrompt - dispatches a fake `beforeinstallprompt`
+// event when the trigger button is clicked, so the prompt UI is visible
+// in playground without depending on real PWA install criteria.
+function InstallPromptDemo() {
+  const trigger = React.useCallback(() => {
+    if (typeof window === "undefined") return;
+    // Clear any prior snooze so subsequent demos can be triggered.
+    try {
+      Object.keys(window.localStorage)
+        .filter((k) => k.startsWith("sd-install-prompt-snooze:"))
+        .forEach((k) => window.localStorage.removeItem(k));
+    } catch {
+      // Ignore private-mode quota errors.
+    }
+    const fake = new Event("beforeinstallprompt") as Event & {
+      platforms: string[];
+      prompt: () => Promise<void>;
+      userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+    };
+    fake.platforms = ["web"];
+    fake.prompt = () => Promise.resolve();
+    fake.userChoice = Promise.resolve({ outcome: "dismissed" });
+    window.dispatchEvent(fake);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <button
+        type="button"
+        onClick={trigger}
+        className="h-9 rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground sd-tap hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        Show install prompt
+      </button>
+      <InstallPrompt />
+    </div>
+  );
+}
+
+// Demo wrapper for UpdateAvailableToast - toggles `available` via a trigger
+// button so the toast only fires on demand.
+function UpdateAvailableToastDemo() {
+  const [available, setAvailable] = React.useState(false);
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <button
+        type="button"
+        onClick={() => setAvailable(true)}
+        className="h-9 rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground sd-tap hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        Trigger update toast
+      </button>
+      <UpdateAvailableToast
+        available={available}
+        onReload={() => {
+          setAvailable(false);
+          if (typeof window !== "undefined") window.location.reload();
+        }}
+      />
+    </div>
+  );
+}
+
 /* ============================================================
  * PWA & i18n - InstallPrompt, NetworkStatus, OfflineIndicator,
  *              ShareButton, UpdateAvailableToast, LocaleProvider
@@ -306,9 +369,7 @@ export function PWASection() {
         description="PWA install button shown when the browser allows."
         code={`<InstallPrompt />`}
       >
-        <div className="flex justify-center">
-          <InstallPrompt />
-        </div>
+        <InstallPromptDemo />
       </DemoCard>
 
       <DemoCard
@@ -355,9 +416,7 @@ export function PWASection() {
         description="Auto-notification when service worker detects a new version."
         code={`<UpdateAvailableToast available onReload={reload} />`}
       >
-        <div className="flex justify-center">
-          <UpdateAvailableToast available={false} />
-        </div>
+        <UpdateAvailableToastDemo />
       </DemoCard>
 
       <DemoCard
@@ -576,23 +635,45 @@ export function PatternsExtSection() {
 }
 
 function OnboardingDemo() {
+  const [seed, setSeed] = React.useState(0);
+  const showOnboarding = React.useCallback(() => {
+    if (typeof window === "undefined") return;
+    // Clear completed flag so the demo can re-trigger on demand.
+    try {
+      window.localStorage.removeItem("sd-onboarding-completed");
+    } catch {
+      // Ignore private-mode quota errors.
+    }
+    setSeed((s) => s + 1);
+  }, []);
   return (
-    <Onboarding
-      slides={[
-        {
-          id: "welcome",
-          title: "Welcome",
-          description: "Build mobile apps that feel native.",
-          icon: <Sparkles aria-hidden className="h-10 w-10 text-brand" />,
-        },
-        {
-          id: "components",
-          title: "Ready-to-use components",
-          description: "Bottom-nav, sheet, swipe - patterns, drop in.",
-          icon: <Plus aria-hidden className="h-10 w-10 text-brand" />,
-        },
-      ]}
-    />
+    <div className="flex flex-col items-center gap-3">
+      <button
+        type="button"
+        onClick={showOnboarding}
+        className="h-9 rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground sd-tap hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        Show onboarding
+      </button>
+      <Onboarding
+        key={seed}
+        slides={[
+          {
+            id: "welcome",
+            title: "Welcome",
+            description: "Build mobile apps that feel native.",
+            icon: <Sparkles aria-hidden className="h-10 w-10 text-brand" />,
+          },
+          {
+            id: "components",
+            title: "Ready-to-use components",
+            description: "Bottom-nav, sheet, swipe - patterns, drop in.",
+            icon: <Plus aria-hidden className="h-10 w-10 text-brand" />,
+          },
+        ]}
+        onComplete={() => setSeed((s) => s + 1)}
+      />
+    </div>
   );
 }
 
@@ -634,29 +715,44 @@ function SearchResultsDemo() {
 }
 
 function CommandPaletteDemo() {
+  const [open, setOpen] = React.useState(false);
   return (
-    <CommandPalette
-      items={[
-        {
-          id: "orders",
-          label: "Orders",
-          group: "Navigation",
-          onSelect: () => {},
-        },
-        {
-          id: "settings",
-          label: "Settings",
-          group: "Navigation",
-          onSelect: () => {},
-        },
-        {
-          id: "new",
-          label: "Create new",
-          group: "Actions",
-          onSelect: () => {},
-        },
-      ]}
-    />
+    <div className="flex flex-col items-center gap-3">
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="h-9 rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground sd-tap hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        Open command palette
+      </button>
+      <p className="text-xs text-muted-foreground">
+        Or press <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium">Ctrl+K</kbd>
+      </p>
+      <CommandPalette
+        open={open}
+        onOpenChange={setOpen}
+        items={[
+          {
+            id: "orders",
+            label: "Orders",
+            group: "Navigation",
+            onSelect: () => {},
+          },
+          {
+            id: "settings",
+            label: "Settings",
+            group: "Navigation",
+            onSelect: () => {},
+          },
+          {
+            id: "new",
+            label: "Create new",
+            group: "Actions",
+            onSelect: () => {},
+          },
+        ]}
+      />
+    </div>
   );
 }
 

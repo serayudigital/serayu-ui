@@ -114,7 +114,7 @@ export function ScrollPicker<T extends string | number>({
         aria-label={ariaLabel}
         tabIndex={disabled ? -1 : 0}
         onKeyDown={onKeyDown}
-        className="h-full overflow-y-auto snap-y snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+        className="relative z-10 h-full overflow-y-auto snap-y snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
       >
         <div style={{ height: PAD }} aria-hidden />
         {options.map((opt) => {
