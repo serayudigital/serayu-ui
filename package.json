@@ -1,6 +1,6 @@
 {
   "name": "@serayu/ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Serayu UI - Mobile-first React components that make web apps feel native. Dual-theme, PWA-ready, by Serayu Digital - www.serayudigital.com",
   "type": "module",
