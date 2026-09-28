@@ -1,3 +1,5 @@
+![Serayu UI banner](./public/banner.png)
+
 # Serayu UI
 
 Mobile-first React components for web applications, built on Radix UI primitives and a Tailwind CSS design token system.
