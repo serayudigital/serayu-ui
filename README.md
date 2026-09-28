@@ -1,4 +1,4 @@
-![Serayu UI banner](./public/banner.png)
+![Serayu UI banner](https://raw.githubusercontent.com/serayudigital/serayu-ui/main/public/banner.png)
 
 # Serayu UI
 
