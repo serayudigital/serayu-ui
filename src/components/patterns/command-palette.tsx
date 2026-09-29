@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Kbd } from "@/components/ui/kbd";
 import { cn } from "@/lib/cn";
 
 /**
@@ -239,12 +240,12 @@ export function CommandPalette({
             aria-label="Search commands"
             className="border-0 bg-transparent px-0 focus-visible:ring-0 focus-visible:ring-offset-0"
           />
-          <kbd
+          <Kbd
             aria-hidden
-            className="hidden shrink-0 rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:inline-block"
+            className="hidden shrink-0 sm:inline-flex"
           >
             Esc
-          </kbd>
+          </Kbd>
         </div>
 
         <div
@@ -305,12 +306,12 @@ export function CommandPalette({
                             ) : null}
                           </div>
                           {item.shortcut ? (
-                            <kbd
+                            <Kbd
                               aria-hidden
-                              className="shrink-0 rounded border border-border bg-background px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"
+                              className="shrink-0 bg-background"
                             >
                               {item.shortcut}
-                            </kbd>
+                            </Kbd>
                           ) : null}
                         </button>
                       </li>

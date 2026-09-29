@@ -109,7 +109,7 @@ function Hero() {
         <div className="flex flex-col justify-center gap-5">
           <Badge variant="secondary" className="w-fit">
             <Sparkles className="h-3 w-3" />
-            Version 1.0.0 - production ready
+            Version 1.0.2 - production ready
           </Badge>
           <h1 className="text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl lg:text-6xl">
             Mobile-first
@@ -119,7 +119,7 @@ function Hero() {
             components.
           </h1>
           <p className="max-w-xl text-base text-muted-foreground md:text-lg">
-            52 components and 29 mobile patterns, themed light and dark
+            56 components and 30 mobile patterns, themed light and dark
             out of the box. Built on Radix UI primitives, with safe-area
             handling and 44-pixel tap targets that work on real devices.
           </p>
@@ -251,10 +251,10 @@ function PhoneDemoApp() {
  * ============================================================ */
 function StatsBar() {
   const stats = [
-    { value: "52", label: "UI components", icon: Layers },
-    { value: "29", label: "Mobile patterns", icon: Smartphone },
-    { value: "10", label: "React hooks", icon: Zap },
-    { value: "21", label: "Utility helpers", icon: CircleCheck },
+    { value: "56", label: "UI components", icon: Layers },
+    { value: "30", label: "Mobile patterns", icon: Smartphone },
+    { value: "12", label: "React hooks", icon: Zap },
+    { value: "24", label: "Utility helpers", icon: CircleCheck },
   ];
   return (
     <section className="border-b border-border bg-background">
@@ -290,7 +290,7 @@ function ComponentShowcase() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeader
           eyebrow="Components"
-          title="52 ready-to-use components"
+          title="56 ready-to-use components"
           subtitle="Every component is keyboard-navigable, exposes proper ARIA roles, and ships with a focus ring. Solid colors only. TypeScript types included."
         />
 
@@ -901,7 +901,7 @@ function SiteFooter() {
       <Separator className="mx-auto my-6 max-w-6xl" />
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 text-center text-xs text-muted-foreground md:flex-row md:text-left">
         <p className="inline-flex items-center gap-1.5">
-          <span>Serayu UI v1.0.0</span>
+          <span>Serayu UI v1.0.2</span>
           <span aria-hidden="true">-</span>
           <span>Released under the MIT License.</span>
         </p>

@@ -119,6 +119,16 @@
     animation: sd-accordion-up var(--sd-duration-standard)
       var(--sd-easing-standard);
   }
+
+  /* Collapsible open/close height animation (NOT a gradient) */
+  .sd-collapsible-down {
+    animation: sd-collapsible-down var(--sd-duration-standard)
+      var(--sd-easing-standard);
+  }
+  .sd-collapsible-up {
+    animation: sd-collapsible-up var(--sd-duration-standard)
+      var(--sd-easing-standard);
+  }
 }
 
 @keyframes sd-accordion-down {
@@ -135,6 +145,28 @@
 @keyframes sd-accordion-up {
   from {
     height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes sd-collapsible-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes sd-collapsible-up {
+  from {
+    height: var(--radix-collapsible-content-height);
     opacity: 1;
   }
   to {

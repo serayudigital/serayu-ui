@@ -1,6 +1,6 @@
 # Patterns
 
-Common mobile-first patterns found in modern applications. All patterns are responsive and respect safe-area insets. 29 patterns in total - see source for the full API.
+Common mobile-first patterns found in modern applications. All patterns are responsive and respect safe-area insets. 30 patterns in total - see source for the full API.
 
 
 MOBILE HEADER
@@ -31,6 +31,40 @@ Props:
 - `right` (ReactNode) - override right slot
 
 The left slot automatically becomes a back button with an `aria-label` when `back` is true. If you need a menu, use the `left` prop.
+
+
+BREADCRUMB
+
+Hierarchical navigation trail. Slot-based: list, item, link, separator, ellipsis, current.
+
+```tsx
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbCurrent,
+} from "@serayu/ui";
+
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/docs">Docs</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbCurrent>Getting started</BreadcrumbCurrent>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
+
+`BreadcrumbCurrent` renders a `span` with `aria-current="page"`. `BreadcrumbLink` supports `asChild` to swap the rendered element. `BreadcrumbSeparator` and `BreadcrumbEllipsis` are themselves `<li>` elements and should NOT be wrapped in `BreadcrumbItem`.
 
 
 BOTTOM NAV

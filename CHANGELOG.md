@@ -5,6 +5,71 @@ All notable changes to Serayu UI will be documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+[1.0.2] - 2026-09-29
+
+Patch release adding 2 hooks, 3 utilities, 4 UI components, and 1
+pattern, with README banner URL fix and refreshed counts across
+playground, landing, docs, and README.
+
+NEW HOOKS
+
+- `usePrefersReducedMotion` - reactive boolean for the
+  `prefers-reduced-motion` media query. SSR-safe.
+- `useNetworkStatus` - tracks `isOnline` plus a sticky `wasOffline`
+  flag, useful for "back online" toasts.
+
+NEW UTILITIES
+
+- `formatBytes(bytes, options?)` - locale-aware byte formatter with
+  manual unit selection (B / KB / MB / GB / TB / PB) using 1024-base.
+- `formatCompactNumber(value, options?)` - locale-aware compact
+  notation (`1.2K`, `3.4M`, `1.5B`) via `Intl.NumberFormat`.
+- `isValidURL(value, options?)` - URL constructor with configurable
+  protocol allowlist (defaults to `http` and `https`).
+
+NEW UI COMPONENTS
+
+- `Kbd` - keyboard shortcut chip with `default` and `muted` variants.
+- `Collapsible` - single open/close region with smooth height
+  animation. Wraps `@radix-ui/react-collapsible`.
+- `HoverCard` - floating content shown on hover with 200ms open
+  delay. Wraps `@radix-ui/react-hover-card`.
+- `ScrollArea` - custom-styled scrollable region with 8px scrollbar.
+  Wraps `@radix-ui/react-scroll-area`.
+
+NEW PATTERN
+
+- `Breadcrumb` - slot-based hierarchical navigation: `Breadcrumb`,
+  `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`,
+  `BreadcrumbSeparator`, `BreadcrumbEllipsis`, `BreadcrumbCurrent`.
+
+PLAYGROUND
+
+- Added demo cards for `Kbd`, `Collapsible`, `HoverCard`,
+  `ScrollArea`, `Breadcrumb`, `usePrefersReducedMotion`, and
+  `useNetworkStatus`.
+- `CommandPalette` demo now uses the new `Kbd` component instead
+  of raw `<kbd>` markup.
+- Updated `CATEGORIES` counts (layout 4 to 6, overlays 6 to 8,
+  patterns 10 to 11, hooks-ext 5 to 7) and hero stat tiles
+  (52 / 29 / 10 / 7 to 56 / 30 / 12 / 8).
+
+LANDING PAGE
+
+- Hero badge now reads `Version 1.0.2 - production ready`.
+- StatsBar updated to 56 / 30 / 12 / 24.
+- Hero copy and `SectionHeader` updated to reflect 56 components
+  and 30 patterns.
+- Footer version string updated to `v1.0.2`.
+
+DOCS
+
+- `docs/components.md`: added entries for `Kbd`, `Collapsible`,
+  `HoverCard`, and `ScrollArea`; updated total to 56.
+- `docs/patterns.md`: added `Breadcrumb` entry; updated total to 30.
+- `README.md`: counts and listings refreshed across Components,
+  Patterns, Hooks (10 to 12), and Utilities (21 to 24).
+
 [1.0.1] - 2026-09-27
 
 Patch release with bug fixes, chore cleanup, and playground demo
@@ -116,3 +181,4 @@ TOOLING
 
 [1.0.0]: https://github.com/serayudigital/serayu-ui/releases/tag/v1.0.0
 [1.0.1]: https://github.com/serayudigital/serayu-ui/releases/tag/v1.0.1
+[1.0.2]: https://github.com/serayudigital/serayu-ui/releases/tag/v1.0.2

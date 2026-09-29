@@ -24,7 +24,10 @@ export {
   formatRelative,
   formatNomorHP,
   formatPhoneNumber,
+  formatBytes,
+  formatCompactNumber,
   isValidEmail,
+  isValidURL,
   isValidIndonesianPhone,
   isValidNIK,
   truncate,
@@ -85,6 +88,11 @@ export {
 } from "./hooks/use-intersection-observer";
 export { useVisibilityPause } from "./hooks/use-visibility-pause";
 export { useScrollLock } from "./hooks/use-scroll-lock";
+export { usePrefersReducedMotion } from "./hooks/use-prefers-reduced-motion";
+export {
+  useNetworkStatus,
+  type UseNetworkStatusReturn,
+} from "./hooks/use-network-status";
 
 // Components
 export * from "./components/ui/accordion";
@@ -99,14 +107,17 @@ export * from "./components/ui/carousel";
 export * from "./components/ui/charts";
 export * from "./components/ui/checkbox";
 export * from "./components/ui/chip";
+export * from "./components/ui/collapsible";
 export * from "./components/ui/combobox";
 export * from "./components/ui/date-picker";
 export * from "./components/ui/date-range-picker";
 export * from "./components/ui/dialog";
 export * from "./components/ui/dropdown-menu";
 export * from "./components/ui/form";
+export * from "./components/ui/hover-card";
 export * from "./components/ui/input";
 export * from "./components/ui/install-prompt";
+export * from "./components/ui/kbd";
 export * from "./components/ui/label";
 export * from "./components/ui/locale-provider";
 export * from "./components/ui/network-status";
@@ -115,6 +126,7 @@ export * from "./components/ui/popover";
 export * from "./components/ui/progress";
 export * from "./components/ui/radio-group";
 export * from "./components/ui/rating";
+export * from "./components/ui/scroll-area";
 export * from "./components/ui/segmented-control";
 export * from "./components/ui/select";
 export * from "./components/ui/separator";

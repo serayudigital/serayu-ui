@@ -44,6 +44,3 @@ coverage
 # npm pack artifacts
 *.tgz
 
-# Internal reference doc
-serayu-ui.txt
-

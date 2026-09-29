@@ -71,19 +71,19 @@ interface NavCategory {
 
 const CATEGORIES: NavCategory[] = [
   { id: "actions", label: "Actions", group: "UI Components", count: 4 },
-  { id: "layout", label: "Layout", group: "UI Components", count: 4 },
+  { id: "layout", label: "Layout", group: "UI Components", count: 6 },
   { id: "feedback", label: "Feedback", group: "UI Components", count: 2 },
   { id: "forms", label: "Forms", group: "UI Components", count: 6 },
   { id: "forms-ext", label: "Forms Advanced", group: "UI Components", count: 12 },
   { id: "navigation", label: "Navigation", group: "UI Components", count: 2 },
-  { id: "overlays", label: "Overlays", group: "UI Components", count: 6 },
+  { id: "overlays", label: "Overlays", group: "UI Components", count: 8 },
   { id: "data", label: "Data", group: "UI Components", count: 8 },
   { id: "data-viz", label: "Charts", group: "UI Components", count: 7 },
   { id: "pwa", label: "PWA & i18n", group: "UI Components", count: 7 },
-  { id: "patterns", label: "Mobile Patterns", group: "Patterns", count: 10 },
+  { id: "patterns", label: "Mobile Patterns", group: "Patterns", count: 11 },
   { id: "patterns-ext", label: "Patterns Advanced", group: "Patterns", count: 19 },
   { id: "hooks", label: "Hooks", group: "Hooks", count: 4 },
-  { id: "hooks-ext", label: "Hooks Advanced", group: "Hooks", count: 5 },
+  { id: "hooks-ext", label: "Hooks Advanced", group: "Hooks", count: 7 },
 ];
 
 const SECTION_TITLES: Record<CategoryId, string> = {
@@ -482,9 +482,9 @@ function Hero() {
         </p>
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:max-w-2xl sm:grid-cols-4">
-          <StatTile icon={Layers} value="52" label="UI Components" />
-          <StatTile icon={Smartphone} value="29" label="Mobile Patterns" />
-          <StatTile icon={Cpu} value="10" label="Hooks" />
+          <StatTile icon={Layers} value="56" label="UI Components" />
+          <StatTile icon={Smartphone} value="30" label="Mobile Patterns" />
+          <StatTile icon={Cpu} value="12" label="Hooks" />
           <StatTile icon={Palette} value="7" label="Theme Presets" />
         </div>
       </div>

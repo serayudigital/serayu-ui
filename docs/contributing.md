@@ -39,8 +39,8 @@ STRUCTURE
 serayu-ui/
 ├── src/
 │   ├── components/
-│   │   ├── ui/        # 52 primitive UI components
-│   │   └── patterns/  # 29 mobile-first patterns
+│   │   ├── ui/        # 56 primitive UI components
+│   │   └── patterns/  # 30 mobile-first patterns
 │   ├── hooks/         # useTheme, useMediaQuery, useToast
 │   ├── lib/           # cn, utils, format
 │   ├── styles/        # tokens + utilities

@@ -29,7 +29,7 @@ FEATURES
 - Strict TypeScript. 100% strict mode with full type definitions exposed per file.
 - Tree-shakable. Only the imports you use are bundled.
 - Solid color palette. WCAG AA contrast ratios throughout.
-- 52 UI components, 29 patterns, 10 hooks, 21 utilities.
+- 56 UI components, 30 patterns, 12 hooks, 24 utilities.
 
 
 INSTALLATION
@@ -229,17 +229,17 @@ The bundled Tailwind configuration exposes each token as a utility class without
 ```
 
 
-COMPONENTS (52)
+COMPONENTS (56)
 
 | Category | Components |
 | -------- | ---------- |
 | Actions | `Button`, `Badge` |
-| Layout | `Card`, `Separator`, `Skeleton`, `SkeletonGroup` |
+| Layout | `Card`, `Separator`, `Skeleton`, `SkeletonGroup`, `Kbd`, `ScrollArea` |
 | Feedback | `Alert`, `Toast`, `Toaster` |
 | Forms (basic) | `Input`, `Textarea`, `Checkbox`, `Switch`, `RadioGroup`, `Select`, `Label` |
 | Forms (advanced) | `Chip`, `SegmentedControl`, `Slider`, `Rating`, `Stepper`, `Combobox`, `Form`, `DatePicker`, `DateRangePicker`, `TimePicker`, `MultiSelectCombobox`, `ColorPicker` |
-| Navigation | `Tabs`, `Accordion` |
-| Overlays | `Dialog`, `AlertDialog`, `Sheet`, `Popover`, `DropdownMenu`, `Tooltip` |
+| Navigation | `Tabs`, `Accordion`, `Collapsible` |
+| Overlays | `Dialog`, `AlertDialog`, `Sheet`, `Popover`, `DropdownMenu`, `Tooltip`, `HoverCard` |
 | Data | `Avatar`, `AvatarGroup`, `AnimatedNumber`, `VirtualList`, `PhotoViewer`, `Carousel` |
 | Charts | `Sparkline`, `ProgressRing`, `Donut`, `BarChart`, `LineChart`, `Heatmap` |
 | PWA | `InstallPrompt`, `NetworkStatus`, `OfflineIndicator`, `ShareButton`, `UpdateAvailableToast` |
@@ -247,7 +247,7 @@ COMPONENTS (52)
 | Interaction | `SwipeableRow` |
 | Theme | `ThemeToggle`, `ThemeCustomizer` |
 
-Mobile-first patterns (29):
+Mobile-first patterns (30):
 
 - `MobileHeader` - sticky header with three slots (back, title, action).
 - `BottomNav` - bottom tab bar with three to five items.
@@ -278,9 +278,10 @@ Mobile-first patterns (29):
 - `CommandBarMobile` - iOS share-sheet style command bar.
 - `ThemeCustomizer` - live preview panel for tweaking `sd-*` tokens across four presets.
 - `Tour` - guided product tour with spotlight and auto-positioned bubble.
+- `Breadcrumb` - hierarchical navigation trail with link, separator, ellipsis, and current slots.
 
 
-HOOKS (10)
+HOOKS (12)
 
 - `useTheme` - theme preference with cross-tab synchronization.
 - `useMediaQuery` - media query hook with `useIsMobile`, `useIsDesktop`, and breakpoint helpers.
@@ -292,13 +293,15 @@ HOOKS (10)
 - `useIntersectionObserver` - lazy trigger when an element enters the viewport.
 - `useScrollLock` - lock body scroll while an overlay is active (`Dialog`, `Sheet`, `Tour`).
 - `useVisibilityPause` - pause and resume via the Page Visibility API, useful for autoplay.
+- `usePrefersReducedMotion` - reactive boolean for the `prefers-reduced-motion` media query.
+- `useNetworkStatus` - tracks `isOnline` plus a sticky `wasOffline` flag for back-online toasts.
 
 
-UTILITIES (21)
+UTILITIES (24)
 
 - `cn(...)` - combines `clsx` and `tailwind-merge`.
-- Formatters: `formatCurrency`, `formatRupiah`, `formatNumber`, `formatDate`, `formatTanggal`, `formatRelative`, `formatNomorHP`, `formatPhoneNumber`.
-- Validators: `isValidEmail`, `isValidIndonesianPhone`, `isValidNIK`.
+- Formatters: `formatCurrency`, `formatRupiah`, `formatNumber`, `formatDate`, `formatTanggal`, `formatRelative`, `formatNomorHP`, `formatPhoneNumber`, `formatBytes`, `formatCompactNumber`.
+- Validators: `isValidEmail`, `isValidIndonesianPhone`, `isValidNIK`, `isValidURL`.
 - Theme helpers: `theme-overrides` exposing `ThemeOverrides`, `OVERRIDE_TO_VAR`, and `overridesToInlineStyle`, plus `theme-presets` exposing `THEME_PRESETS`, `DEFAULT_THEME`, `applyDocumentOverrides`, and `clearDocumentOverrides`.
 - Calendar helpers: `calendar-utils` exposing `startOfMonth`, `addMonths`, `isSameDay`, `isSameMonth`, `getDayOfWeekMonFirst`, `stripTime`, `sortRange`, `isInRange`, `MONTH_NAMES_ID`, `MONTH_NAMES_EN`, `DAY_NAMES_ID`, `DAY_NAMES_EN_MON_FIRST`, and `pickLocale`.
 - Generic helpers: `sleep`, `isClient`, `composeEventHandlers`, `mergeRefs`, `truncate`, `capitalize`, `clamp`, `uid`, `noop`.
@@ -315,7 +318,7 @@ SCRIPTS
 | `npm run typecheck` | TypeScript no-emit check. |
 | `npm run lint` | Run ESLint through the `eslint-plugin-serayu` plugin (four convention rules). |
 | `npm run lint:serayu` | Run unit tests for the plugin (32 tests via `RuleTester`). |
-| `npm run test` | Run the full Vitest suite (131 tests). |
+| `npm run test` | Run the full Vitest suite (177 tests). |
 | `npm run generate:icons` | Regenerate PWA icons from `favicon.ico`. |
 
 The maintainer publishing workflow is documented in [docs/publishing.md](https://github.com/serayudigital/serayu-ui/blob/main/docs/publishing.md).

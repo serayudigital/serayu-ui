@@ -4,7 +4,10 @@ import {
   formatTanggal,
   formatNomorHP,
   formatPhoneNumber,
+  formatBytes,
+  formatCompactNumber,
   isValidEmail,
+  isValidURL,
   isValidIndonesianPhone,
   isValidNIK,
 } from "../utils";
@@ -297,5 +300,138 @@ describe("isValidNIK", () => {
   it("rejects non-string input", () => {
     expect(isValidNIK(undefined as unknown as string)).toBe(false);
     expect(isValidNIK(1234567890123456 as unknown as string)).toBe(false);
+  });
+});
+
+describe("formatBytes", () => {
+  it("returns 0 B for 0", () => {
+    expect(formatBytes(0)).toContain("0");
+    expect(formatBytes(0)).toContain("B");
+  });
+
+  it("formats 1024 as 1 KB", () => {
+    const result = formatBytes(1024);
+    expect(result).toContain("1");
+    expect(result).toContain("KB");
+  });
+
+  it("formats 1536 with one decimal", () => {
+    const result = formatBytes(1536);
+    expect(result).toContain("1,5");
+    expect(result).toContain("KB");
+  });
+
+  it("formats 1048576 as 1 MB", () => {
+    const result = formatBytes(1048576);
+    expect(result).toContain("1");
+    expect(result).toContain("MB");
+  });
+
+  it("formats 1073741824 as ~1 GB", () => {
+    const result = formatBytes(1073741824);
+    expect(result).toContain("GB");
+  });
+
+  it("honors en-US locale", () => {
+    const result = formatBytes(1536, { locale: "en-US" });
+    expect(result).toContain("1.5");
+    expect(result).toContain("KB");
+  });
+
+  it("honors decimals option", () => {
+    const result = formatBytes(1536, { decimals: 0 });
+    expect(result).toContain("2");
+    expect(result).toContain("KB");
+  });
+
+  it("handles negative bytes", () => {
+    const result = formatBytes(-1024);
+    expect(result.startsWith("-")).toBe(true);
+  });
+
+  it("returns 0 B for non-finite values", () => {
+    expect(formatBytes(NaN)).toBe("0 B");
+    expect(formatBytes(Infinity)).toBe("0 B");
+  });
+});
+
+describe("formatCompactNumber", () => {
+  it("formats 1200 compactly (id-ID)", () => {
+    expect(formatCompactNumber(1200)).toContain("1,2");
+  });
+
+  it("formats 3_400_000 compactly (id-ID)", () => {
+    expect(formatCompactNumber(3_400_000)).toContain("3,4");
+  });
+
+  it("formats 1_500_000_000 compactly (id-ID)", () => {
+    expect(formatCompactNumber(1_500_000_000)).toContain("1,5");
+  });
+
+  it("honors en-US locale", () => {
+    const result = formatCompactNumber(1500000000, { locale: "en-US" });
+    expect(result).toBe("1.5B");
+  });
+
+  it("formats small numbers without compact notation", () => {
+    expect(formatCompactNumber(500)).toContain("500");
+  });
+
+  it("accepts custom maximumFractionDigits", () => {
+    const result = formatCompactNumber(1234567, {
+      locale: "en-US",
+      maximumFractionDigits: 0,
+    });
+    expect(result).toBe("1M");
+  });
+});
+
+describe("isValidURL", () => {
+  it("accepts https URL", () => {
+    expect(isValidURL("https://example.com")).toBe(true);
+  });
+
+  it("accepts http URL", () => {
+    expect(isValidURL("http://example.com/path?query=1#hash")).toBe(true);
+  });
+
+  it("rejects domain without protocol", () => {
+    expect(isValidURL("example.com")).toBe(false);
+  });
+
+  it("rejects empty string", () => {
+    expect(isValidURL("")).toBe(false);
+  });
+
+  it("rejects whitespace-only string", () => {
+    expect(isValidURL("   ")).toBe(false);
+  });
+
+  it("rejects malformed URL", () => {
+    expect(isValidURL("not a url")).toBe(false);
+  });
+
+  it("rejects ftp:// by default", () => {
+    expect(isValidURL("ftp://files.example.com")).toBe(false);
+  });
+
+  it("accepts ftp:// when explicitly allowed", () => {
+    expect(
+      isValidURL("ftp://files.example.com", { protocols: ["ftp"] })
+    ).toBe(true);
+  });
+
+  it("accepts mixed protocols list", () => {
+    expect(
+      isValidURL("ftp://files.example.com", {
+        protocols: ["http", "https", "ftp"],
+      })
+    ).toBe(true);
+  });
+
+  it("rejects non-string input", () => {
+    expect(isValidURL(undefined as unknown as string)).toBe(false);
+    expect(isValidURL(null as unknown as string)).toBe(false);
+    expect(isValidURL(42 as unknown as string)).toBe(false);
   });
 });

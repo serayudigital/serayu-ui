@@ -1,6 +1,6 @@
 # UI Components
 
-Quick reference for 52 UI components. For full API, read the TypeScript source - all props are documented via JSDoc.
+Quick reference for 56 UI components. For full API, read the TypeScript source - all props are documented via JSDoc.
 
 ACTIONS
 
@@ -77,6 +77,19 @@ Loading placeholder. Use `rounded-full` for circles, default for text.
 ```tsx
 <Skeleton className="h-12 w-12 rounded-full" />
 <Skeleton className="h-4 w-3/4" />
+```
+
+KBD
+
+Keyboard shortcut chip. Renders inline, monospace, decorative. Pass `children` as separate strings to auto-join with `+`.
+
+```tsx
+import { Kbd } from "@serayu/ui";
+
+<Kbd>Ctrl</Kbd>
+<Kbd>Ctrl</Kbd>
+<Kbd>K</Kbd>
+<Kbd variant="muted">Esc</Kbd>
 ```
 
 FEEDBACK
@@ -241,6 +254,23 @@ ACCORDION
 
 Mode: `"single"` or `"multiple"`. `collapsible` allows closing all.
 
+COLLAPSIBLE
+
+Single open/close region with smooth height animation. Lighter than `Accordion` for one-shot toggles (filters, sections).
+
+```tsx
+import { Collapsible } from "@serayu/ui";
+
+<Collapsible>
+  <CollapsibleTrigger asChild>
+    <Button variant="outline">Toggle</Button>
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    <div className="p-3">Hidden content here.</div>
+  </CollapsibleContent>
+</Collapsible>
+```
+
 OVERLAYS
 
 DIALOG
@@ -348,6 +378,26 @@ Short message on hover.
 
 Wrap with `TooltipProvider` once at root (default delay 300ms).
 
+HOVERCARD
+
+Floating content shown on hover. Slower open (200ms) than `Tooltip`, so suitable for richer previews like user cards.
+
+```tsx
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@serayu/ui";
+
+<HoverCard>
+  <HoverCardTrigger asChild>
+    <a href="#">@username</a>
+  </HoverCardTrigger>
+  <HoverCardContent>
+    <div className="space-y-1">
+      <p className="text-sm font-medium">User Name</p>
+      <p className="text-xs text-muted-foreground">Frontend engineer</p>
+    </div>
+  </HoverCardContent>
+</HoverCard>
+```
+
 DATA
 
 AVATAR
@@ -401,6 +451,22 @@ import { VirtualList } from "@serayu/ui";
   renderItem={(item) => <div className="px-3 py-2">{item.label}</div>}
   overscan={5}
 />
+```
+
+SCROLLAREA
+
+Custom-styled scrollable region. Use for chat feeds, lists, and any content that may overflow visually.
+
+```tsx
+import { ScrollArea } from "@serayu/ui";
+
+<ScrollArea className="h-48 w-full rounded-md border border-border">
+  <div className="p-3">
+    {Array.from({ length: 50 }).map((_, i) => (
+      <p key={i} className="py-1 text-sm">Row {i + 1}</p>
+    ))}
+  </div>
+</ScrollArea>
 ```
 
 CHARTS

@@ -4,6 +4,7 @@ export * from "./auth-login";
 export * from "./auth-otp";
 export * from "./bottom-nav";
 export * from "./bottom-sheet";
+export * from "./breadcrumb";
 export * from "./chat-bubble";
 export * from "./command-bar-mobile";
 export * from "./command-palette";

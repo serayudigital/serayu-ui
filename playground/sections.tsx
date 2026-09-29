@@ -114,6 +114,18 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SkeletonGroup } from "@/components/ui/skeleton-group";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Kbd } from "@/components/ui/kbd";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { MobileHeader } from "@/components/patterns/mobile-header";
 import { BottomNav } from "@/components/patterns/bottom-nav";
 import { MobileNav } from "@/components/patterns/mobile-nav";
@@ -124,6 +136,14 @@ import { BottomSheet } from "@/components/patterns/bottom-sheet";
 import { DataTable } from "@/components/patterns/data-table";
 import { EmptyState } from "@/components/patterns/empty-state";
 import { LoadingState } from "@/components/patterns/loading-state";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbCurrent,
+} from "@/components/patterns/breadcrumb";
 import { PhoneMockup } from "./components/landing/phone-mockup";
 import { useToast } from "@/hooks/use-toast";
 import { useTheme, type ThemePreference } from "@/hooks/use-theme";
@@ -321,6 +341,42 @@ export function LayoutSection() {
             <Skeleton className="h-3 w-1/2" />
           </div>
         </div>
+      </DemoCard>
+
+      <DemoCard
+        title="Kbd"
+        description="Keyboard shortcut badge. Use in trigger copy or tooltip hints."
+        code={`<p>Press <Kbd>Ctrl</Kbd> + <Kbd>K</Kbd> to open the palette.</p>`}
+      >
+        <div className="flex flex-col items-start gap-3">
+          <p className="text-sm text-foreground">
+            Press <Kbd>Ctrl</Kbd> + <Kbd>K</Kbd> to open the command palette.
+          </p>
+          <p className="text-sm text-foreground">
+            Then <Kbd>Enter</Kbd> to run, <Kbd>Esc</Kbd> to dismiss.
+          </p>
+        </div>
+      </DemoCard>
+
+      <DemoCard
+        title="ScrollArea"
+        description="Styled scroll viewport for long lists (8.5x faster than default on touch)."
+        code={`<ScrollArea className="h-48 w-full rounded-md border">
+  <ul>...long list...</ul>
+</ScrollArea>`}
+      >
+        <ScrollArea className="h-48 w-full max-w-xs rounded-md border border-border bg-background">
+          <ul className="p-2">
+            {Array.from({ length: 24 }).map((_, i) => (
+              <li
+                key={i}
+                className="border-b border-border px-3 py-2 text-xs last:border-b-0"
+              >
+                Notification #{i + 1}: status update
+              </li>
+            ))}
+          </ul>
+        </ScrollArea>
       </DemoCard>
     </div>
   );
@@ -999,6 +1055,76 @@ export function OverlaysSection() {
           </div>
         </TooltipProvider>
       </DemoCard>
+
+      <DemoCard
+        title="Collapsible"
+        description="Single show/hide section with smooth height animation. Pairs with Accordion."
+        code={`<Collapsible>
+  <CollapsibleTrigger asChild>
+    <Button variant="outline">Toggle details</Button>
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    Hidden content revealed here.
+  </CollapsibleContent>
+</Collapsible>`}
+      >
+        <Collapsible className="w-full max-w-sm">
+          <CollapsibleTrigger asChild>
+            <Button variant="outline">Show details</Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="text-sm text-muted-foreground">
+            <div className="pt-2">
+              The collapsible animates height using a CSS keyframe
+              keyed off the Radix data-state attribute. Reduced-motion
+              users see instant open/close.
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
+      </DemoCard>
+
+      <DemoCard
+        title="HoverCard"
+        description="Rich tooltip on hover or keyboard focus. Useful for user profile previews."
+        code={`<HoverCard>
+  <HoverCardTrigger asChild>
+    <a href="#">@andi</a>
+  </HoverCardTrigger>
+  <HoverCardContent>Profile details</HoverCardContent>
+</HoverCard>`}
+      >
+        <div className="flex items-center gap-2 text-sm">
+          <span>Follow</span>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <a
+                href="#"
+                className="font-medium text-brand underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+              >
+                @andi_wijaya
+              </a>
+            </HoverCardTrigger>
+            <HoverCardContent>
+              <div className="flex items-start gap-3">
+                <div
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-brand-foreground"
+                  aria-hidden
+                >
+                  AW
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground">
+                    Andi Wijaya
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Frontend engineer at Serayu Digital
+                  </p>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
+          <span>for updates.</span>
+        </div>
+      </DemoCard>
     </div>
   );
 }
@@ -1518,6 +1644,34 @@ export function PatternsSection() {
               <LoadingState label="Syncing" size="lg" />
             </Card>
           </div>
+        </DemoCard>
+
+        <DemoCard
+          title="Breadcrumb"
+          description="Hierarchical navigation trail. Slot-based: link, separator, current."
+          code={`<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem><BreadcrumbCurrent>Page</BreadcrumbCurrent></BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>`}
+        >
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="#">Docs</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbCurrent>Getting started</BreadcrumbCurrent>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </DemoCard>
       </div>
     </div>

@@ -10,8 +10,8 @@ QUICK START
 REFERENCE
 
 - [Design Tokens](https://github.com/serayudigital/serayu-ui/blob/main/docs/tokens.md) - Complete list of `sd-` tokens
-- [UI Components](https://github.com/serayudigital/serayu-ui/blob/main/docs/components.md) - 52 primitive components
-- [Patterns](https://github.com/serayudigital/serayu-ui/blob/main/docs/patterns.md) - 29 mobile-first patterns
+- [UI Components](https://github.com/serayudigital/serayu-ui/blob/main/docs/components.md) - 56 primitive components
+- [Patterns](https://github.com/serayudigital/serayu-ui/blob/main/docs/patterns.md) - 30 mobile-first patterns
 - [Accessibility](https://github.com/serayudigital/serayu-ui/blob/main/docs/accessibility.md) - a11y standards, role matrix, testing
 
 ADVANCED TOPICS

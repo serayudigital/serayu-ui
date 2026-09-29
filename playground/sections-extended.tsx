@@ -37,7 +37,10 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useNetworkStatus } from "@/hooks/use-network-status";
 import { DemoCard } from "./demo-card";
+import { cn } from "@/lib/cn";
 
 /* ============================================================
  * FORMS ADVANCED - Chip, SegmentedControl, Slider, Rating,
@@ -806,6 +809,22 @@ const entry = useIntersectionObserver(ref, { threshold: 0.5 });`}
       >
         <IntersectionObserverDemo />
       </DemoCard>
+
+      <DemoCard
+        title="usePrefersReducedMotion"
+        description="Reactive boolean for prefers-reduced-motion media query."
+        code={`const reduce = usePrefersReducedMotion();`}
+      >
+        <PrefersReducedMotionDemo />
+      </DemoCard>
+
+      <DemoCard
+        title="useNetworkStatus"
+        description="Tracks online/offline state with sticky wasOffline flag for back-online toasts."
+        code={`const { isOnline, wasOffline } = useNetworkStatus();`}
+      >
+        <NetworkStatusDemo />
+      </DemoCard>
     </div>
   );
 }
@@ -955,6 +974,68 @@ function IntersectionObserverDemo() {
       <p className="text-xs text-muted-foreground">
         Scroll down to trigger the element above.
       </p>
+    </div>
+  );
+}
+
+function PrefersReducedMotionDemo() {
+  const reduce = usePrefersReducedMotion();
+  return (
+    <div className="w-full space-y-2">
+      <div
+        className={cn(
+          "flex h-24 w-full items-center justify-center rounded-md border border-border text-sm",
+          reduce ? "bg-muted" : "bg-surface",
+        )}
+      >
+        {reduce
+          ? "Reduce motion is enabled"
+          : "Reduce motion is disabled"}
+      </div>
+      <p className="text-xs text-muted-foreground">
+        Toggle the OS-level setting to see this update in real time.
+      </p>
+    </div>
+  );
+}
+
+function NetworkStatusDemo() {
+  const { isOnline, wasOffline } = useNetworkStatus();
+  return (
+    <div className="w-full space-y-2">
+      <div className="flex items-center gap-2">
+        <Chip
+          variant={isOnline ? "success" : "danger"}
+          size="sm"
+        >
+          {isOnline ? "Online" : "Offline"}
+        </Chip>
+        {wasOffline && isOnline ? (
+          <Chip variant="info" size="sm">
+            Back online
+          </Chip>
+        ) : null}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() =>
+            window.dispatchEvent(new Event("offline"))
+          }
+        >
+          Simulate offline
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() =>
+            window.dispatchEvent(new Event("online"))
+          }
+        >
+          Simulate online
+        </Button>
+      </div>
     </div>
   );
 }

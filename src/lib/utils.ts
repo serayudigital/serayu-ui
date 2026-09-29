@@ -145,6 +145,84 @@ export function mergeRefs<T>(...refs: Array<React.Ref<T> | undefined>): React.Re
 export function noop(): void {}
 
 /* ============================================================
+ * File sizes and compact numbers
+ * ============================================================ */
+
+/**
+ * Format a byte count as a human-readable string ("1.5 MB", "256 KB").
+ *
+ * Auto-scales to the appropriate binary unit (B / KB / MB / GB / TB / PB,
+ * 1024-based). The number portion is rendered via Intl.NumberFormat so the
+ * decimal and grouping separators follow the active locale (id-ID by
+ * default: "1,5 KB"; en-US: "1.5 KB").
+ *
+ * Example:
+ *   formatBytes(0)                          => "0 B"
+ *   formatBytes(1024)                       => "1 KB"
+ *   formatBytes(1536)                       => "1,5 KB"   (id-ID default)
+ *   formatBytes(1048576)                    => "1 MB"
+ *   formatBytes(1073741824, { locale: "en-US" }) => "1.07 GB"
+ *   formatBytes(1536, { decimals: 0 })      => "2 KB"
+ */
+export function formatBytes(
+  bytes: number,
+  options?: { decimals?: number; locale?: string }
+): string {
+  if (!Number.isFinite(bytes)) return "0 B";
+  const locale = options?.locale ?? "id-ID";
+  const decimals = options?.decimals ?? 1;
+
+  const sign = bytes < 0 ? "-" : "";
+  const abs = Math.abs(bytes);
+
+  const units = ["B", "KB", "MB", "GB", "TB", "PB"];
+  let value = abs;
+  let unitIndex = 0;
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024;
+    unitIndex += 1;
+  }
+
+  // For the bytes unit, never show decimals (e.g. "512 B", not "512,0 B").
+  // For larger units, show up to `decimals` fractional digits.
+  const fractionDigits = unitIndex === 0 ? 0 : decimals;
+  const numberFormatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: fractionDigits,
+  });
+  const formatted = numberFormatter.format(value);
+  return `${sign}${formatted} ${units[unitIndex]}`;
+}
+
+/**
+ * Format a number using compact notation ("1.2K", "3.4M", "1.5B").
+ *
+ * Wraps Intl.NumberFormat with `notation: "compact"`. Useful for chart
+ * axes, large counts, and table cells where space is tight. Locale-aware:
+ * en-US yields "1.2K", id-ID yields "1,2 rb".
+ *
+ * The optional `locale` field on `options` is honored (unlike a plain
+ * Intl.NumberFormat options object, where locale must be the first
+ * constructor argument).
+ *
+ * Example:
+ *   formatCompactNumber(1200)             => "1,2 rb" (id-ID default)
+ *   formatCompactNumber(3_400_000)        => "3,4 jt" (id-ID default)
+ *   formatCompactNumber(1500000000, { locale: "en-US" }) => "1.5B"
+ */
+export function formatCompactNumber(
+  value: number,
+  options?: Intl.NumberFormatOptions & { locale?: string }
+): string {
+  const { locale, ...rest } = options ?? {};
+  return new Intl.NumberFormat(locale ?? "id-ID", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+    ...rest,
+  }).format(value);
+}
+
+/* ============================================================
  * Indonesian locale (aliases and special formatters)
  * ============================================================ */
 
@@ -270,6 +348,41 @@ export function isValidEmail(value: string): boolean {
   if (typeof value !== "string") return false;
   if (value.length === 0 || value.length > 254) return false;
   return EMAIL_RE.test(value);
+}
+
+/**
+ * Validate a URL and (optionally) restrict to a list of allowed protocols.
+ *
+ * Defaults to allowing `http` and `https` only. Pass a `protocols` array
+ * to allow others (e.g. `["ftp"]` or `["ws", "wss"]`).
+ *
+ * Rejects empty strings, malformed URLs, and protocols not in the list.
+ *
+ * Example:
+ *   isValidURL("https://example.com")                  => true
+ *   isValidURL("example.com")                          => false (no protocol)
+ *   isValidURL("ftp://files.example.com")              => false (default blocks ftp)
+ *   isValidURL("ftp://files.example.com", { protocols: ["http", "https", "ftp"] }) => true
+ *   isValidURL("")                                     => false
+ */
+export function isValidURL(
+  value: string,
+  options?: { protocols?: Array<"http" | "https" | string> }
+): boolean {
+  if (typeof value !== "string") return false;
+  if (value.trim().length === 0) return false;
+
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
+  }
+
+  const allowed = options?.protocols ?? ["http", "https"];
+  // URL.protocol includes the trailing colon (e.g. "https:").
+  const protocol = url.protocol.replace(/:$/, "");
+  return allowed.includes(protocol);
 }
 
 /**
